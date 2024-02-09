@@ -1,38 +1,54 @@
-    package com.github.andessonreis.api.domain.user;
+package com.github.andessonreis.api.domain.user;
 
-    import java.math.BigDecimal;
+import java.math.BigDecimal;
 
-    import jakarta.persistence.Column;
-    import jakarta.persistence.Entity;
-    import jakarta.persistence.GeneratedValue;
-    import jakarta.persistence.GenerationType;
-    import jakarta.persistence.Id;
-    import jakarta.persistence.Table;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
+import com.github.andessonreis.api.domain.user.dto.UserDTO;
 
-    @Entity(name = "users")
-    @Table(name = "users")
-    @Data
-    @EqualsAndHashCode(of = "id")
-    public class User {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-        private Long id;
+@Entity(name = "users")
+@Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@EqualsAndHashCode(of = "id")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-        private String name;
+    private Long id;
 
-        @Column(unique = true)
-        private String document;
+    private String name;
 
-        @Column(unique = true)
-        private String email;
+    @Column(unique = true)
+    private String document;
 
-        private String password;
+    @Column(unique = true)
+    private String email;
 
-        private UserType userType;
+    private String password;
+
+    private UserType userType;
+    
+    private BigDecimal balance;
+
+    public User(UserDTO userDTO) {
+
+        this.name = userDTO.name();
+        this.document = userDTO.document();
+        this.email = userDTO.email();
+        this.password  = userDTO.password();
+        this.userType = userDTO.userType();
+        this.balance = userDTO.balance();
         
-        private BigDecimal balance;
-
     }
+}
